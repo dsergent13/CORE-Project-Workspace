@@ -35,6 +35,13 @@
  code=code.replace('Published details are shown below. Changes are managed by the workspace owner.','Try editing the fields below. Saved changes stay in this tab’s demo session.');
  code=code.replace('Open an item to view its setup instructions and recorded progress. Changes are managed by the workspace owner.','Open an item to view or edit setup details, or update its progress. Changes stay in this tab’s demo session.');
  code=code.replace('Review the configuration checklist and recorded validation.','Try setup, configuration changes and validation in your own demo session.');
+ if(!code.includes('const configurationJourney=createConfigurationJourney(')){
+  code="import {createConfigurationJourney} from './configuration-journey.js?v=journey-41';\n"+code;
+  code=code.replace('const navs=[',"const navs=[['configuration-journey','↗','Configuration Journey',''],");
+  code=code.replace("pages:['configuration','configuration-areas','development-delivery','migration']","pages:['configuration-journey','configuration','configuration-areas','development-delivery','migration']");
+  code=code.replace('const raid=createRaid(',"const configurationJourney=createConfigurationJourney({getData:()=>data,getState:()=>state,delivery,html,head,pill,download,persist,openDetail,content:markup=>$('#content').innerHTML=markup});\nconst raid=createRaid(");
+  code=code.replace("if(current==='configuration'){","if(current==='configuration-journey'){configurationJourney.view();return;}if(current==='configuration'){");
+ }
  script.textContent=code;
  for(const item of [...doc.querySelectorAll('script:not([type])')])if(item.textContent.includes('This static viewer has no server'))item.remove();
  const banner=doc.querySelector('.publication-banner');
