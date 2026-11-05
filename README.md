@@ -1,11 +1,11 @@
-# PayIt Project Workspace — Read-Only Proof of Concept
+# PayIt Project Workspace — Interactive Proof of Concept
 
-This public proof of concept includes real Missouri and New Hampshire project snapshots with the owner's approval. It is not restricted to PayIt employees. Jira links still require Jira access, but the included snapshots are public. `noindex` requests search-engine exclusion; it does not provide access control.
+The shared link opens directly to the Project Dashboard. Use the Project dropdown in the sidebar to switch Missouri and New Hampshire.
 
-The site is made of three self-contained files: `index.html`, `missouri.html`, and `new-hampshire.html`. Publish the repository root using GitHub Settings → Pages → Deploy from a branch → main → / (root).
+Start Setup and the add/edit/delete, validation and confirmation controls operate on a copy of the published records in your tab’s browser session. Changes survive refresh but do not update the owner’s workspace, other visitors, or Jira. Each project keeps separate demo changes. Reset My Changes discards the current project’s demo changes and reloads its published snapshot. Browser session restoration may retain a restored tab’s session.
 
-Visitors can browse, search, sort, expand sections, view recorded details and export tables. Editing and Jira sync remain owner-managed in the original local workspace. Original workbook attachments are omitted from this lightweight proof of concept; table/document exports still work.
+The owner continues editing and syncing Jira in the original local workspace. Publishing a refreshed snapshot is a separate rebuild/upload step. Jira connection and project creation are not exposed in the public demo. Downloaded backups and exports can be retained outside the session.
 
-To refresh, finish your local edits and Jira sync, then ask Codex to rebuild the GitHub snapshot. Replace these three HTML files with the contents generated in `outputs/payit-github-pages/github-upload/`. Publication is a deliberate separate step; local edits do not automatically appear here. Source dates may precede the publication date.
+This public proof of concept includes real Missouri and New Hampshire snapshots with the owner’s approval. No login is required. No Jira credentials, server or local database is included. `noindex` is not access control. Original workbook attachments are omitted; table/document exports are available.
 
-No Python server, local database, plugin, Jira token or Keychain data is included. Browser preferences may persist locally; project records always load from the published snapshot.
+Keep index.html, poc-loader.js, missouri.html and new-hampshire.html together in the repository root. Publish main / (root) through GitHub Pages. Rebuild with work/build_github_pages.py in the owner’s original project folder, then publish the generated files from outputs/payit-github-pages/github-upload/.
