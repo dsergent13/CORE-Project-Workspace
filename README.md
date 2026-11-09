@@ -1,11 +1,9 @@
 # PayIt Project Workspace — Interactive Proof of Concept
 
-The shared link opens directly to the Project Dashboard. Use the Project dropdown in the sidebar to switch Missouri and New Hampshire.
+Open index.html through GitHub Pages. Select the client from the sidebar. Project edits stay in this tab’s session, survive refresh, and do not update the owner’s workspace or Jira. Reset My Changes restores the published project snapshot. Browser session restoration may retain a restored session. Jira sync is owner-managed.
 
-Start Setup and the add/edit/delete, validation and confirmation controls operate on a copy of the published records in your tab’s browser session. Changes survive refresh but do not update the owner’s workspace, other visitors, or Jira. Each project keeps separate demo changes. Reset My Changes discards the current project’s demo changes and reloads its published snapshot. Browser session restoration may retain a restored tab’s session.
+The latest UI release includes Configuration Journey settings and filters, bulk adding, Not Needed progress, the Data Migration menu and Data Mapping, and Change Log notifications. Change Log acknowledgments are browser-local across client selection on this origin. Current browsers with DecompressionStream support are required.
 
-The owner continues editing and syncing Jira in the original local workspace. Publishing a refreshed snapshot is a separate rebuild/upload step. Jira connection and project creation are not exposed in the public demo. Downloaded backups and exports can be retained outside the session.
+Keep index.html, poc-loader.js, workspace-release.json, missouri.html and new-hampshire.html together. The self-contained HTML files supply retained source datasets. workspace-release.json supplies the current application, shared configuration inventory, styles and owner snapshots. No Jira credentials, server or local database is included. The site is public, with real Missouri and New Hampshire snapshots published at the owner’s request. noindex is not access control.
 
-This public proof of concept includes real Missouri and New Hampshire snapshots with the owner’s approval. No login is required. No Jira credentials, server or local database is included. `noindex` is not access control. Original workbook attachments are omitted; table/document exports are available.
-
-Keep index.html, poc-loader.js, missouri.html and new-hampshire.html together in the repository root. Publish main / (root) through GitHub Pages. Rebuild with work/build_github_pages.py in the owner’s original project folder, then publish the generated files from outputs/payit-github-pages/github-upload/.
+Rebuild the current release with python3 work/build_github_release.py in the owner’s workspace, then update workspace-release.json, poc-loader.js and index.html in this repository. Source-dataset changes require refreshing the base HTML snapshots. Do not upload runtime folders or credentials.
