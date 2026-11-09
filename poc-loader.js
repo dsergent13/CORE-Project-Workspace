@@ -5,10 +5,17 @@
  const requested=new URLSearchParams(location.search).get('project');
  let remembered='';try{remembered=localStorage.getItem('payit-published-selected-project');}catch{}
  const project=projects.some(p=>p.id===requested)?requested:projects.some(p=>p.id===remembered)?remembered:'missouri';
+ const releaseResponse=await fetch('workspace-release.json?v=workspace-48',{cache:'no-cache'});if(!releaseResponse.ok)throw Error('Workspace update could not load.');
+ const release=await releaseResponse.json();
+ const unpack=async text=>{const bytes=Uint8Array.from(atob(text),c=>c.charCodeAt(0));return await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();};
  const response=await fetch(project+'.html',{cache:'no-cache'});if(!response.ok)throw Error('Project snapshot could not load.');
  const doc=new DOMParser().parseFromString(await response.text(),'text/html');
  const script=doc.querySelector('script[type="module"]');if(!script)throw Error('Project application was not found.');
- let code=script.textContent;
+ const update=release.projects[project];if(!update)throw Error('Project update could not load.');
+ let code=await unpack(update.code);
+ const dataNode=doc.getElementById('workspace-data'),data=JSON.parse(dataNode.textContent);data.configurationUIInventory=JSON.parse(await unpack(release.configurationInventory));dataNode.textContent=JSON.stringify(data).replaceAll('<','\\u003c');
+ doc.getElementById('published-state').textContent=JSON.stringify(update.snapshot).replaceAll('<','\\u003c');
+ const baseStyle=doc.head.querySelector('style');if(baseStyle)baseStyle.textContent=release.styles;
  code=code.replace(/let projectChoices=\[[^;]*;/,'let projectChoices='+JSON.stringify(projects)+';');
  const switchStart=code.indexOf('async function switchProject(id){'),switchEnd=code.indexOf('const escape=',switchStart);
  if(switchStart<0||switchEnd<0)throw Error('Project navigation could not initialize.');
