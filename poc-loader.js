@@ -5,7 +5,7 @@
  const requested=new URLSearchParams(location.search).get('project');
  let remembered='';try{remembered=localStorage.getItem('payit-published-selected-project');}catch{}
  const project=projects.some(p=>p.id===requested)?requested:projects.some(p=>p.id===remembered)?remembered:'missouri';
- const releaseResponse=await fetch('workspace-release.json?v=workspace-55',{cache:'no-cache'});if(!releaseResponse.ok)throw Error('Workspace update could not load.');
+ const releaseResponse=await fetch('workspace-release.json?v=workspace-56',{cache:'no-cache'});if(!releaseResponse.ok)throw Error('Workspace update could not load.');
  const release=await releaseResponse.json();
  const unpack=async text=>{const bytes=Uint8Array.from(atob(text),c=>c.charCodeAt(0));return await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();};
  const response=await fetch(project+'.html',{cache:'no-cache'});if(!response.ok)throw Error('Project snapshot could not load.');
